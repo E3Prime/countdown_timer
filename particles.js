@@ -17,10 +17,10 @@ function initializeCanvas() {
   const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
   /** @type {Particle[]} */
   const particles = [];
-  const particleCount = 70;
+  const particleCount = 90;
   new ResizeObserver((entries) => canvasResize(entries, canvas, ctx)).observe(canvas);
 
-  for (let i = 0; i < particleCount; i++) {
+  for (let i = 0; i < particleCount; ++i) {
     // Pass the shared canvasState object to each particle
     particles.push(new Particle(canvasState));
   }

@@ -3,9 +3,9 @@ initialize();
 function initialize() {
   document.getElementById('mountainHills')?.classList.add('animate');
   const [daysElem, hoursElem, minutesElem, secondsElem] = /** @type {Array<HTMLParagraphElement>} */ ([...document.querySelectorAll('.time-unit > :first-child')]);
+  const newYear = new Date(`January 1 ${new Date().getFullYear() + 1} 00:00:00`);
 
   const countdown = () => {
-    const newYear = getNextNewYear();
     const currentDate = new Date();
     const totalSeconds = (newYear.getTime() - currentDate.getTime()) / 1000;
     const days = Math.floor(totalSeconds / 3600 / 24);
@@ -29,9 +29,4 @@ function initialize() {
  * */
 function formatTime(time) {
   return time < 10 ? `0${time}` : time.toString();
-}
-
-function getNextNewYear() {
-  const currentYear = new Date().getFullYear();
-  return new Date(`January 1 ${currentYear + 1} 00:00:00`);
 }
