@@ -10,30 +10,18 @@ const canvasState = {
   height: 0,
 };
 
-initializeCanvas();
+const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('particleCanvas'));
+const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
 
-function initializeCanvas() {
-  const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('particleCanvas'));
-  const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
-  /** @type {Particle[]} */
-  const particles = [];
-  const particleCount = 90;
-  new ResizeObserver((entries) => canvasResize(entries, canvas, ctx)).observe(canvas);
+new ResizeObserver((entries) => canvasResize(entries)).observe(canvas);
 
-  for (let i = 0; i < particleCount; ++i) {
-    // Pass the shared canvasState object to each particle
-    particles.push(new Particle(canvasState));
-  }
+/** @type {Particle[]} */
+const particles = Array.from({length: 70}, () => new Particle(canvasState));
 
-  animate(ctx, particles);
-}
+animate();
 
-/**
- * @param {ResizeObserverEntry[]} entries
- * @param {HTMLCanvasElement} canvas
- * @param {CanvasRenderingContext2D} ctx
- */
-function canvasResize(entries, canvas, ctx) {
+/** @param {ResizeObserverEntry[]} entries */
+function canvasResize(entries) {
   const entry = entries[0];
   const {width: cssWidth, height: cssHeight} = entry.contentRect;
   const dpr = window.devicePixelRatio || 1;
@@ -50,16 +38,10 @@ function canvasResize(entries, canvas, ctx) {
   canvasState.height = cssHeight;
 }
 
-/**
- * The main animation loop.
- * @param {CanvasRenderingContext2D} ctx
- * @param {Particle[]} particles
- */
-function animate(ctx, particles) {
+function animate() {
   const w = canvasState.width;
   const h = canvasState.height;
 
-  // Clear the canvas
   ctx.clearRect(0, 0, w, h);
 
   // Update and draw each particle
@@ -69,5 +51,5 @@ function animate(ctx, particles) {
   });
 
   // Loop
-  requestAnimationFrame(() => animate(ctx, particles));
+  requestAnimationFrame(() => animate());
 }
