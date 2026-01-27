@@ -8,7 +8,7 @@ A visually immersive countdown timer that tracks the precise time remaining unti
 
 ## 🔗 Links
 
-- **Live Demo Link:**
+- **Live Demo Link:** https://e3prime.github.io/countdown_timer
 
 ## ⏳ Countdown Timer Showcase
 
